@@ -9,8 +9,10 @@ export default function HomePage() {
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-2">Interview Preparation</h1>
-      <p className="text-zinc-500 mb-10">Choose a block and start leveling up</p>
+      <div className="text-center mb-10">
+        <h1 className="text-3xl font-bold mb-2">Interview Preparation</h1>
+        <p className="text-zinc-500">Choose a block and start leveling up</p>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
         {Object.entries(QUESTIONS_DB).map(([id, block]) => {
