@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { QUESTIONS_DB } from "@/data";
+import { getBlockData } from "@/lib/getBlockData";
 import TopicsList from "@/components/blocks/TopicsList";
 import BackButton from "@/components/common/BackButton";
 
@@ -9,11 +9,9 @@ interface BlockPageProps {
 
 export default async function BlockPage({ params }: BlockPageProps) {
   const { block } = await params;
-  const blockData = QUESTIONS_DB[block];
+  const blockData = getBlockData(block);
 
-  if (!blockData) {
-    notFound();
-  }
+  if (!blockData) notFound();
 
   return (
     <main className="w-full max-w-4xl mx-auto px-4 py-12">

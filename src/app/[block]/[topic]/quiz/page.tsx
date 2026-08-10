@@ -1,7 +1,8 @@
 // ← /[block]/[topic]/quiz
 
 import { notFound } from "next/navigation";
-import { QUESTIONS_DB } from "@/data";
+import { getBlockData } from "@/lib/getBlockData";
+import { getTopicData } from "@/lib/getTopicData";
 import QuizClient from "@/components/quiz/QuizClient";
 
 interface TopicQuizPageProps {
@@ -10,8 +11,8 @@ interface TopicQuizPageProps {
 
 export default async function TopicQuizPage({ params }: TopicQuizPageProps) {
   const { block, topic } = await params;
-  const blockData = QUESTIONS_DB[block];
-  const topicData = blockData?.topics[topic];
+  const blockData = getBlockData(block);
+  const topicData = blockData ? getTopicData(blockData, topic) : undefined;
 
   if (!blockData || !topicData) notFound();
 

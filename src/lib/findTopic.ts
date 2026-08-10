@@ -1,7 +1,7 @@
-import { QUESTIONS_DB } from "@/data";
+import { getBlockData } from "@/lib/getBlockData";
 
 export function findTopicIdByQuestionId(questionId: string, blockId: string): string | null {
-  const block = QUESTIONS_DB[blockId];
+  const block = getBlockData(blockId);
   if (!block) return null;
 
   for (const [topicId, topic] of Object.entries(block.topics)) {
