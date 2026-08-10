@@ -3,9 +3,17 @@
 import { useAppSelector } from "@/store/hooks";
 import { QUESTIONS_DB } from "@/data";
 import BlockCard from "@/components/blocks/BlockCard";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
+  const [isMounted, setIsMounted] = useState(false);
   const topicsProgress = useAppSelector((state) => state.progress.topics);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <main className="w-full max-w-4xl mx-auto px-4 py-12">
