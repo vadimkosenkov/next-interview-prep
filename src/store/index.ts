@@ -3,7 +3,18 @@ import uiSlice from "@/store/slices/uiSlice";
 import progressSlice from "@/store/slices/progressSlice";
 import historySlice from "@/store/slices/historySlice";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+
+const createNoopStorage = () => ({
+  getItem() { return Promise.resolve(null); },
+  setItem() { return Promise.resolve(); },
+  removeItem() { return Promise.resolve(); },
+});
+
+const storage =
+  typeof window !== "undefined"
+    ? createWebStorage("local")
+    : createNoopStorage();
 
 // key: localStorage key name; whitelist: which slices to persist (use blacklist for exclusions instead).
 const persistConfig = {
