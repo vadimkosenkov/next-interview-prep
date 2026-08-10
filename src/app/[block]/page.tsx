@@ -16,7 +16,7 @@ export default async function BlockPage({ params }: BlockPageProps) {
   }
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-12">
+    <main className="w-full max-w-4xl mx-auto px-4 py-12">
       <BackButton />
       <div className="flex items-center gap-4 mb-10">
         <span className="text-5xl">{blockData.meta.icon}</span>

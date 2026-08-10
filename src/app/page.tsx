@@ -8,7 +8,7 @@ export default function HomePage() {
   const topicsProgress = useAppSelector((state) => state.progress.topics);
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-12">
+    <main className="w-full max-w-4xl mx-auto px-4 py-12">
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold mb-2">Interview Preparation</h1>
         <p className="text-zinc-500">Choose a block and start leveling up</p>
