@@ -1,4 +1,4 @@
-// ← /[block]/quiz (все темы)
+// ← /[block]/quiz (all topics)
 
 import { notFound } from "next/navigation";
 import { QUESTIONS_DB } from "@/data";

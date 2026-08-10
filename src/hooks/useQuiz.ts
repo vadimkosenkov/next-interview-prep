@@ -32,8 +32,8 @@ interface UseQuizReturn {
 export function useQuiz({ blockId, topicId, questions }: UseQuizProps): UseQuizReturn {
   const dispatch = useAppDispatch();
   const shuffled = useMemo(() => shuffle(questions), [questions]);
-  // Перемешиваем вопросы один раз при монтировании хука.
-  // Без useMemo shuffle вызывался бы при каждом ре-рендере и вопросы постоянно перемешивались бы.
+  // Shuffle the questions once when the hook mounts.
+  // Without useMemo, shuffle would run on every re-render and questions would keep reshuffling.
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -45,7 +45,7 @@ export function useQuiz({ blockId, topicId, questions }: UseQuizProps): UseQuizR
 
   const answer = (optionIndex: number) => {
     if (isAnswered) return;
-    // Защита от двойного клика. Если пользователь уже ответил — игнорируем повторные нажатия.
+    // Guard against double-clicks. If the user already answered, ignore repeat clicks.
 
     const correct = optionIndex === currentQuestion.en.correct;
 
@@ -58,17 +58,20 @@ export function useQuiz({ blockId, topicId, questions }: UseQuizProps): UseQuizR
   };
 
   const next = () => {
+    if (isFinished) return;
+    // Guard against double-clicks on "Finish" re-dispatching progress/history updates.
+
     const isLast = currentIndex === shuffled.length - 1;
 
     if (isLast) {
-      // Считаем правильные ответы в момент завершения.
-      // Используем локальный results а не Redux — Redux обновляем один раз в конце квиза, не после каждого вопроса.
+      // Count correct answers at the moment the quiz finishes.
+      // We use local `results` instead of Redux — Redux is updated once at the end of the quiz, not after every question.
       const correct = results.filter((r) => r.correct).length;
       const total = results.length;
       const pct = Math.round((correct / total) * 100);
 
       if (topicId) {
-        // Квиз по одной теме
+        // Single-topic quiz
         dispatch(
           updateTopicProgress({
             blockId,
@@ -79,10 +82,10 @@ export function useQuiz({ blockId, topicId, questions }: UseQuizProps): UseQuizR
           })
         );
       } else {
-        // Квиз по всем темам — группируем результаты по topicId
+        // All-topics quiz — group results by topicId
         const byTopic = results.reduce<Record<string, { correct: number; total: number }>>(
           (acc, result) => {
-            // находим тему вопроса по его id
+            // find the question's topic by its id
             const tId = findTopicIdByQuestionId(result.questionId, blockId);
             if (!tId) return acc;
             if (!acc[tId]) acc[tId] = { correct: 0, total: 0 };
@@ -117,7 +120,7 @@ export function useQuiz({ blockId, topicId, questions }: UseQuizProps): UseQuizR
         })
       );
 
-      setIsFinished(true); // Cигнал для страницы что квиз завершён и нужно показать экран результатов.
+      setIsFinished(true); // Signal to the page that the quiz is finished and the results screen should show.
       return;
     }
 

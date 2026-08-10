@@ -51,7 +51,7 @@ export default function QuizClient({ blockId, topicId, questions, }: QuizClientP
 
         <div className="flex gap-3">
           <button
-            onClick={() => setResult(null)} // Сброс результата, но QuestionCard и useQuiz пересоздаются заново потому что React размонтирует и монтирует компонент заново при переходе из result-экрана обратно. Вопросы перемешаются снова через useMemo.
+            onClick={() => setResult(null)} // Resets the result, but QuestionCard and useQuiz are recreated from scratch because React unmounts and remounts the component when navigating back from the result screen. Questions get reshuffled again via useMemo.
             className="flex-1 py-3 font-bold border-2 border-zinc-200 dark:border-zinc-700 rounded-2xl hover:border-violet-500 transition-colors cursor-pointer"
           >
             🔄 Retry

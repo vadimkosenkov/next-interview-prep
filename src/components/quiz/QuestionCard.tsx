@@ -42,9 +42,9 @@ export default function QuestionCard({ blockId, topicId, questions, onFinish, }:
   const letters = ["A", "B", "C"];
 
   const getAnswerState = (index: number) => {
-    // Чистая функция которая вычисляет состояние каждой кнопки ответа.
-    // Если не отвечено — default.
-    // Если отвечено — правильный получает correct, выбранный неправильный — wrong, остальные — disabled.
+    // Pure function that computes the state of each answer button.
+    // If not answered yet — default.
+    // If answered — the correct one gets "correct", the selected wrong one gets "wrong", the rest get "disabled".
     if (!isAnswered) return "default";
     if (index === locQ.correct) return "correct";
     if (index === selectedAnswer) return "wrong";
@@ -99,8 +99,8 @@ export default function QuestionCard({ blockId, topicId, questions, onFinish, }:
           <div
             className="bg-white dark:bg-zinc-900 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6"
             onClick={(e) => e.stopPropagation()}
-            // e.stopPropagation() — клик внутри модалки не должен закрывать её.
-            // Без этого клик на контент всплывал бы до overlay и закрывал модалку.
+            // e.stopPropagation() — a click inside the modal shouldn't close it.
+            // Without this, clicking the content would bubble up to the overlay and close the modal.
           >
             <div className="flex justify-between items-start mb-4">
               <h3 className="font-bold text-lg pr-4">{locQ.q}</h3>
