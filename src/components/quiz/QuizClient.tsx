@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Question } from "@/types/question";
 import QuestionCard from "@/components/quiz/QuestionCard";
 import BackButton from "@/components/common/BackButton";
+import { useIsClient } from "@/hooks/useIsClient";
 
 interface QuizClientProps {
   blockId: string;
@@ -20,11 +21,7 @@ interface QuizResult {
 export default function QuizClient({ blockId, topicId, questions, }: QuizClientProps) {
   const router = useRouter();
   const [result, setResult] = useState<QuizResult | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useIsClient();
 
   if (!isMounted) return null;
 

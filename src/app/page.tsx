@@ -3,15 +3,11 @@
 import { useAppSelector } from "@/store/hooks";
 import { QUESTIONS_DB } from "@/data";
 import BlockCard from "@/components/blocks/BlockCard";
-import { useEffect, useState } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 
 export default function HomePage() {
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useIsClient();
   const topicsProgress = useAppSelector((state) => state.progress.topics);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   if (!isMounted) return null;
 

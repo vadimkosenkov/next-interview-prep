@@ -34,7 +34,7 @@ export default function QuestionCard({ blockId, topicId, questions, onFinish, }:
       const correct = results.filter((r) => r.correct).length;
       onFinish({ correct, total: results.length });
     }
-  }, [isFinished]);
+  }, [isFinished, results, onFinish]);
 
   if (isFinished) return null;
 
