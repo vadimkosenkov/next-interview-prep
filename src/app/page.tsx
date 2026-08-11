@@ -3,12 +3,19 @@
 import { useAppSelector } from "@/store/hooks";
 import { QUESTIONS_DB } from "@/data";
 import BlockCard from "@/components/blocks/BlockCard";
+import { useIsClient } from "@/hooks/useIsClient";
 
 export default function HomePage() {
-  const topicsProgress = useAppSelector((state) => state.progress.topics);
+  const isClient = useIsClient();
+  const persistedProgress = useAppSelector((state) => state.progress.topics);
+  // redux-persist rehydrates from localStorage before the client's first
+  // hydration render, so reading persistedProgress directly here would
+  // mismatch the server-rendered zero state. Use the empty default until
+  // the client is confirmed mounted, then swap in the real values.
+  const topicsProgress = isClient ? persistedProgress : {};
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-12">
+    <main className="w-full max-w-4xl mx-auto px-4 py-12">
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold mb-2">Interview Preparation</h1>
         <p className="text-zinc-500">Choose a block and start leveling up</p>
