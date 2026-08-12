@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Lang } from "@/lib/i18n";
 
 interface UiState {
-  language: "ru" | "en";
+  language: Lang;
 }
 
 const initialState: UiState = {
-  language: "ru",
+  language: "en",
 };
 
 const uiSlice = createSlice({

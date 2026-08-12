@@ -6,6 +6,8 @@ import { Question } from "@/types/question";
 import AnswerButton from "@/components/quiz/AnswerButton";
 import FeedbackPanel from "@/components/quiz/FeedbackPanel";
 import QuizProgressBar from "@/components/quiz/QuizProgressBar";
+import { useTranslations } from "@/hooks/useTranslations";
+import { useAppSelector } from "@/store/hooks";
 
 interface QuestionCardProps {
   blockId: string;
@@ -16,6 +18,8 @@ interface QuestionCardProps {
 
 export default function QuestionCard({ blockId, topicId, questions, onFinish, }: QuestionCardProps) {
   const [showTheory, setShowTheory] = useState(false);
+  const translations = useTranslations();
+  const lang = useAppSelector((state) => state.ui.language);
 
   const {
     currentQuestion,
@@ -38,7 +42,7 @@ export default function QuestionCard({ blockId, topicId, questions, onFinish, }:
 
   if (isFinished) return null;
 
-  const locQ = currentQuestion.en;
+  const locQ = currentQuestion[lang];
   const letters = ["A", "B", "C"];
 
   const getAnswerState = (index: number) => {
@@ -57,7 +61,7 @@ export default function QuestionCard({ blockId, topicId, questions, onFinish, }:
 
       <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl p-6 mb-4">
         <p className="text-xs font-semibold text-violet-500 uppercase tracking-wide mb-2">
-          Question {currentIndex + 1}
+          {translations.quiz.questionNumber(currentIndex + 1)}
         </p>
         <p className="text-lg font-semibold leading-relaxed">{locQ.q}</p>
       </div>
@@ -87,7 +91,7 @@ export default function QuestionCard({ blockId, topicId, questions, onFinish, }:
           onClick={next}
           className="mt-4 w-full py-3 font-bold text-white bg-violet-600 hover:bg-violet-700 rounded-2xl transition-colors cursor-pointer"
         >
-          {currentIndex === totalQuestions - 1 ? "Finish →" : "Next →"}
+          {currentIndex === totalQuestions - 1 ? translations.quiz.finish : translations.quiz.next}
         </button>
       )}
 

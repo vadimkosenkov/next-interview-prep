@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface BlockCardProps {
   id: string;
@@ -11,6 +14,8 @@ interface BlockCardProps {
 }
 
 export default function BlockCard({ id, icon, title, desc, topicsCount, answeredCount, accuracyPct }: BlockCardProps) {
+  const translations = useTranslations();
+
   return (
     <Link href={`/${id}`}>
       <div
@@ -27,7 +32,7 @@ export default function BlockCard({ id, icon, title, desc, topicsCount, answered
         </div>
 
         <p className="text-xs text-zinc-400">
-          {answeredCount} answered · {topicsCount} {topicsCount === 1 ? "topic" : "topics"}
+          {answeredCount} {translations.blocks.answered} · {topicsCount} {topicsCount === 1 ? translations.blocks.topic : translations.blocks.topics}
         </p>
       </div>
     </Link>
