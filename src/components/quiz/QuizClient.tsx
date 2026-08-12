@@ -21,9 +21,9 @@ interface QuizResult {
 export default function QuizClient({ blockId, topicId, questions, }: QuizClientProps) {
   const router = useRouter();
   const [result, setResult] = useState<QuizResult | null>(null);
-  const isMounted = useIsClient();
+  const isClient = useIsClient();
 
-  if (!isMounted) return null;
+  if (!isClient) return null;
 
   if (result) {
     const pct = Math.round((result.correct / result.total) * 100);

@@ -1,0 +1,12 @@
+import DashboardClient from "@/components/dashboard/DashboardClient";
+import BackButton from "@/components/common/BackButton";
+
+export default function DashboardPage() {
+  return (
+    <main className="w-full max-w-4xl mx-auto px-4 py-12">
+      <BackButton />
+      <h1 className="text-3xl font-bold mb-8">📊 Statistics</h1>
+      <DashboardClient />
+    </main>
+  );
+}

@@ -4,6 +4,7 @@ import { useAppSelector } from "@/store/hooks";
 import { QUESTIONS_DB } from "@/data";
 import BlockCard from "@/components/blocks/BlockCard";
 import { useIsClient } from "@/hooks/useIsClient";
+import Link from "next/link";
 
 export default function HomePage() {
   const isClient = useIsClient();
@@ -20,6 +21,13 @@ export default function HomePage() {
         <h1 className="text-3xl font-bold mb-2">Interview Preparation</h1>
         <p className="text-zinc-500">Choose a block and start leveling up</p>
       </div>
+
+      <Link
+        href="/dashboard"
+        className="flex items-center gap-2 mx-auto mb-10 px-6 py-2.5 border-2 border-zinc-200 dark:border-zinc-700 rounded-full text-zinc-500 hover:border-violet-500 hover:text-violet-500 transition-colors w-fit"
+      >
+        📊 Statistics & Progress
+      </Link>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
         {Object.entries(QUESTIONS_DB).map(([id, block]) => {
