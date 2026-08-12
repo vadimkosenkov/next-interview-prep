@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch } from "@/store/hooks";
 import { setLanguage } from "@/store/slices/uiSlice";
 import { useTranslations } from "@/hooks/useTranslations";
-import { useIsClient } from "@/hooks/useIsClient";
+import { useLanguage } from "@/hooks/useLanguage";
 
 export default function Header() {
   const dispatch = useAppDispatch();
-  const isClient = useIsClient();
-  const persistedLanguage = useAppSelector((state) => state.ui.language);
-  const language = isClient ? persistedLanguage : "en";
+  const language = useLanguage();
   const translations = useTranslations();
 
   return (
