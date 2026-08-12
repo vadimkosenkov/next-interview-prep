@@ -13,7 +13,7 @@ const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    setLanguage: (state, action: PayloadAction<"ru" | "en">) => {
+    setLanguage: (state, action: PayloadAction<Lang>) => {
       state.language = action.payload;
     },
   },
