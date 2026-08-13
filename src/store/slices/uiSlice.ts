@@ -1,18 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Lang } from "@/lib/i18n";
 
 interface UiState {
-  language: "ru" | "en";
+  language: Lang;
 }
 
 const initialState: UiState = {
-  language: "ru",
+  language: "en",
 };
 
 const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    setLanguage: (state, action: PayloadAction<"ru" | "en">) => {
+    setLanguage: (state, action: PayloadAction<Lang>) => {
       state.language = action.payload;
     },
   },

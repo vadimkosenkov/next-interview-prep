@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import { Topic } from "@/types/question";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface TopicsListProps {
   blockId: string;
@@ -11,6 +12,7 @@ interface TopicsListProps {
 
 export default function TopicsList({ blockId, topics }: TopicsListProps) {
   const topicsProgress = useAppSelector((state) => state.progress.topics);
+  const translations = useTranslations();
 
   return (
     <div className="flex flex-col gap-3">
@@ -45,12 +47,12 @@ export default function TopicsList({ blockId, topics }: TopicsListProps) {
                 />
               </div>
               <p className="text-xs text-zinc-400">
-                {answered > 0 ? `${pct}% · ${correct}/${answered} correct` : "Not started"}
+                {answered > 0 ? `${pct}% · ${correct}/${answered} ${translations.blocks.correctSuffix}` : translations.blocks.notStarted}
               </p>
             </div>
 
             <span className="text-xs text-zinc-400 shrink-0">
-              {total} questions
+              {total} {translations.blocks.questions}
             </span>
           </Link>
         );
@@ -60,7 +62,7 @@ export default function TopicsList({ blockId, topics }: TopicsListProps) {
         href={`/${blockId}/quiz`}
         className="mt-4 w-full py-3 text-center font-bold text-white bg-violet-600 hover:bg-violet-700 rounded-2xl transition-colors"
       >
-        🚀 Start all topics
+        {translations.blocks.startAll}
       </Link>
     </div>
   );

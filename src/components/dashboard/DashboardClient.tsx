@@ -5,12 +5,14 @@ import { resetProgress } from "@/store/slices/progressSlice";
 import { clearHistory } from "@/store/slices/historySlice";
 import { QUESTIONS_DB } from "@/data";
 import { useIsClient } from "@/hooks/useIsClient";
+import { useTranslations } from "@/hooks/useTranslations";
 
 export default function DashboardClient() {
   const dispatch = useAppDispatch();
   const topicsProgress = useAppSelector((state) => state.progress.topics);
   const sessions = useAppSelector((state) => state.history.sessions);
   const isClient = useIsClient();
+  const translations = useTranslations();
 
   if (!isClient) return null;
 
@@ -23,7 +25,7 @@ export default function DashboardClient() {
     : 0;
 
   const handleReset = () => {
-    if (confirm("Reset all progress and history?")) {
+    if (confirm(translations.dashboard.resetConfirm)) {
       dispatch(resetProgress());
       dispatch(clearHistory());
     }
@@ -32,13 +34,15 @@ export default function DashboardClient() {
   return (
     <div className="flex flex-col gap-8">
 
+      <h1 className="text-3xl font-bold mb-8">{translations.dashboard.title}</h1>
+
       {/* Stat Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total answered", value: totalAnswered },
-          { label: "Correct", value: totalCorrect },
-          { label: "Accuracy", value: `${accuracy}%` },
-          { label: "Sessions", value: sessions.length },
+          { label: translations.dashboard.totalAnswered, value: totalAnswered },
+          { label: translations.dashboard.correctCount, value: totalCorrect },
+          { label: translations.dashboard.accuracy, value: `${accuracy}%` },
+          { label: translations.dashboard.sessions, value: sessions.length },
         ].map((stat) => (
           <div
             key={stat.label}
@@ -52,7 +56,7 @@ export default function DashboardClient() {
 
       {/* Progress by topic */}
       <div>
-        <h2 className="text-lg font-bold mb-4">Progress by topic</h2>
+        <h2 className="text-lg font-bold mb-4">{translations.dashboard.progressByTopic}</h2>
         <div className="flex flex-col gap-3">
           {Object.entries(QUESTIONS_DB).map(([blockId, block]) =>
             Object.entries(block.topics).map(([topicId, topic]) => {
@@ -94,10 +98,10 @@ export default function DashboardClient() {
 
       {/* Session history */}
       <div>
-        <h2 className="text-lg font-bold mb-4">Session history</h2>
+        <h2 className="text-lg font-bold mb-4">{translations.dashboard.sessionHistory}</h2>
         {sessions.length === 0 ? (
           <p className="text-zinc-400 text-sm">
-            No history yet. Complete a quiz first!
+            {translations.dashboard.noHistory}
           </p>
         ) : (
           <div className="flex flex-col gap-2">
@@ -136,7 +140,7 @@ export default function DashboardClient() {
         onClick={handleReset}
         className="self-start text-sm text-red-400 border border-red-300 hover:bg-red-50 dark:hover:bg-red-950 px-4 py-2 rounded-xl transition-colors cursor-pointer"
       >
-        🗑 Reset all progress
+        {translations.dashboard.resetProgress}
       </button>
 
     </div>
