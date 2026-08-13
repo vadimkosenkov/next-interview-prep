@@ -7,7 +7,7 @@ import AnswerButton from "@/components/quiz/AnswerButton";
 import FeedbackPanel from "@/components/quiz/FeedbackPanel";
 import QuizProgressBar from "@/components/quiz/QuizProgressBar";
 import { useTranslations } from "@/hooks/useTranslations";
-import { useAppSelector } from "@/store/hooks";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface QuestionCardProps {
   blockId: string;
@@ -19,7 +19,7 @@ interface QuestionCardProps {
 export default function QuestionCard({ blockId, topicId, questions, onFinish, }: QuestionCardProps) {
   const [showTheory, setShowTheory] = useState(false);
   const translations = useTranslations();
-  const lang = useAppSelector((state) => state.ui.language);
+  const lang = useLanguage();
 
   const {
     currentQuestion,

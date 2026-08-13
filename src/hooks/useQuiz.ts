@@ -5,6 +5,7 @@ import { addSession } from "@/store/slices/historySlice";
 import { shuffle } from "@/lib/shuffle";
 import { findTopicIdByQuestionId } from "@/lib/findTopic";
 import { Question } from "@/types/question";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface AnswerResult {
   questionId: string;
@@ -31,6 +32,7 @@ interface UseQuizReturn {
 
 export function useQuiz({ blockId, topicId, questions }: UseQuizProps): UseQuizReturn {
   const dispatch = useAppDispatch();
+  const language = useLanguage();
   const shuffled = useMemo(() => shuffle(questions), [questions]);
   // Shuffle the questions once when the hook mounts.
   // Without useMemo, shuffle would run on every re-render and questions would keep reshuffling.
@@ -47,7 +49,7 @@ export function useQuiz({ blockId, topicId, questions }: UseQuizProps): UseQuizR
     if (isAnswered) return;
     // Guard against double-clicks. If the user already answered, ignore repeat clicks.
 
-    const correct = optionIndex === currentQuestion.en.correct;
+    const correct = optionIndex === currentQuestion[language].correct;
 
     setSelectedAnswer(optionIndex);
     setIsAnswered(true);
