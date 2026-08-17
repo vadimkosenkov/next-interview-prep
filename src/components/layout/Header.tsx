@@ -41,6 +41,7 @@ export default function Header() {
           </div>
           <button
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            aria-label="Toggle color theme"
             className="px-3 py-1 rounded-full text-sm font-semibold text-zinc-400 hover:text-zinc-600 transition-colors cursor-pointer"
           >
             <span className="dark:hidden">🌙</span>
