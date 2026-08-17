@@ -5,11 +5,13 @@ import { useAppDispatch } from "@/store/hooks";
 import { setLanguage } from "@/store/slices/uiSlice";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useTheme } from "next-themes";
 
 export default function Header() {
   const dispatch = useAppDispatch();
   const language = useLanguage();
   const translations = useTranslations();
+  const { resolvedTheme, setTheme } = useTheme();
 
   return (
     <header className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
@@ -37,6 +39,14 @@ export default function Header() {
               </button>
             ))}
           </div>
+          <button
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            aria-label="Toggle color theme"
+            className="px-3 py-1 rounded-full text-sm font-semibold text-zinc-400 hover:text-zinc-600 transition-colors cursor-pointer"
+          >
+            <span className="dark:hidden">🌙</span>
+            <span className="hidden dark:inline">☀️</span>
+          </button>
         </div>
       </div>
     </header>
