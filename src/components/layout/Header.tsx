@@ -5,11 +5,17 @@ import { useAppDispatch } from "@/store/hooks";
 import { setLanguage } from "@/store/slices/uiSlice";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useIsClient } from "@/hooks/useIsClient";
+import { useTheme } from "next-themes";
 
 export default function Header() {
   const dispatch = useAppDispatch();
   const language = useLanguage();
   const translations = useTranslations();
+  const { resolvedTheme, setTheme } = useTheme();
+  const isClient = useIsClient();
+
+  if (!isClient) return;
 
   return (
     <header className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
@@ -37,6 +43,12 @@ export default function Header() {
               </button>
             ))}
           </div>
+          <button
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="px-3 py-1 rounded-full text-sm font-semibold text-zinc-400 hover:text-zinc-600 transition-colors cursor-pointer"
+          >
+            {resolvedTheme === "dark" ? "☀️" : "🌙"}
+          </button>
         </div>
       </div>
     </header>
