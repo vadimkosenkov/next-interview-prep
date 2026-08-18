@@ -2,6 +2,8 @@
 
 A Next.js application for practicing frontend & backend technical interview questions. Browse topics grouped into blocks (HTML/CSS, JavaScript, TypeScript, Angular, React, Next.js, NestJS, Node.js, SQL, Git), take quizzes with instant feedback, and track your progress over time — all persisted locally in the browser.
 
+🔗 Live Demo: https://next-interview-prep.netlify.app/
+
 🔗 Repository: https://github.com/vadimkosenkov/next-interview-prep
 
 ---
