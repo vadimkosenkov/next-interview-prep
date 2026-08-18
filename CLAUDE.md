@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- `npm run dev` — start dev server (Turbopack) at localhost:3000
+- `npm run dev` — start dev server (Turbopack, the Next 16 default — not an explicit `--turbopack` flag in this repo) at localhost:3000
 - `npm run build` — production build
 - `npm run start` — run the production build
 - `npm run lint` — ESLint (flat config: `eslint-config-next` core-web-vitals + typescript)
