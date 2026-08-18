@@ -7,6 +7,7 @@ A Next.js application for practicing frontend & backend technical interview ques
 ---
 
 ## 📸 Preview
+![PrepFlow Preview](https://github.com/user-attachments/assets/98d397bb-74cc-40eb-8938-74f0814c700f)
 
 ---
 
